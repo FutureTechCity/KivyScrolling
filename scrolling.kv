@@ -1,0 +1,30 @@
+#:kivy 1.9.0
+
+<ScrollingScreen>:
+    front_layer: front
+    back_layer: back
+    cactus: cactus1
+
+    canvas.before:
+        Rectangle:
+            source: 'sky-gradient.png'
+            size: self.width, self.height
+            pos: 0, 0
+            
+    ScrollingImage:
+        id: back
+        image: 'mountains2.png'
+        pos: 0, root.height / 8
+        size: self.parent.width, root.height / 8
+
+    ScrollingImage:
+        id: front
+        image: 'mountains.png'
+        pos: 0, root.height / 8
+        size: root.width, root.height / 8
+
+    Image:
+        id: cactus1
+        source: 'cactus.png'
+        pos: 0, 0
+        size: self.size
