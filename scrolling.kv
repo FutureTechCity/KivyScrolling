@@ -4,6 +4,7 @@
     front_layer: front
     back_layer: back
     cactus: cactus1
+    invader: invader_1
 
     canvas.before:
         Rectangle:
@@ -22,6 +23,12 @@
         image: 'mountains.png'
         pos: 0, root.height / 8
         size: root.width, root.height / 8
+
+    AnimatingImage:
+        id: invader_1
+        allow_stretch: True
+        size: 32, 32
+        center: root.width / 2, root.height / 2
 
     Image:
         id: cactus1

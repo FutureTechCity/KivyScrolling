@@ -2,9 +2,24 @@ from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.clock import Clock
 from kivy.core.image import Image as CoreImage
+from kivy.uix.image import Image
 from kivy.graphics import Rectangle
 from kivy.properties import ObjectProperty
 from kivy.core.window import Window
+
+class AnimatingImage(Image):
+    time = 0.0
+    rate = 0.2
+    frame = 1
+    def update(self, dt):
+        self.time += dt
+        if (self.time > self.rate):
+            self.time -= self.rate
+            self.source = "atlas://invader/frame" + str(self.frame)
+            self.texture.mag_filter = "nearest"
+            self.frame = self.frame + 1
+            if (self.frame > 2):
+                self.frame = 1
 
 class ScrollingImage(Widget):
     image = ObjectProperty(None)
@@ -29,11 +44,13 @@ class ScrollingScreen(Widget):
     front_layer = ObjectProperty(None)
     back_layer = ObjectProperty(None)
     cactus = ObjectProperty(None)
+    invader = ObjectProperty(None)
     
     def update(self, dt):
         self.front_layer.update(dt * 0.1)
         self.back_layer.update(dt * 0.05)
         self.cactus.pos[0] -= dt * 200.0
+        self.invader.update(dt)
         if (self.cactus.pos[0] < -self.cactus.size[0]):
             self.cactus.pos[0] = Window.size[0]
         
